@@ -75,6 +75,8 @@ class nuca_org_t {
 class Nuca : public Component
 {
   public:
+
+    Nuca();
     Nuca(
         /*TechnologyParameter::*/DeviceType *dt);
     void print_router();
