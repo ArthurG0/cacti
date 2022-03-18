@@ -10,6 +10,13 @@
      \/___/  \/__/\/_/\/____/ \/__/ \/_/    \//  \/_/   \/___/ 
 ```
 
+Our modifications to run on M1 Silicon
+-----------------------------------------------------------
+
+* The version of g++ that was installed on our M1 machines didn't work with the makefile scripts in the project. By trial and error, we were able to pin the issue down to a flag in the file `cacti.mk`: **-gstabs+**. Our research showed that this flag was used to change the format of the debugging information, so we decided it was reasonably safe to remove without changing the behavior of CACTI.
+
+* Another issue was with the source files. The developers used a default parameter in a constructor for one of the classes in a file `nuca.cc`, yet no default value was provided in the header file, `nuca.h`. Modern C++ conventions allow for default values in parametrized functions, but default values have to be specified in the header file, not the source file. We've made the changes to follow this convention but keep the logic the same, and were able to successfully compile `CACTI` on our machines.
+
 
 A Tool to Model Caches/Memories, 3D stacking, and off-chip IO
 -----------------------------------------------------------
